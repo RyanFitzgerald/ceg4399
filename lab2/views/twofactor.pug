@@ -1,0 +1,7 @@
+extends layout
+
+block content
+    h1 Two-Factor Authentication
+    form(action="/verify-twofactor" method="POST")
+        input(type="text" name="twofactor" placeholder="Enter Two-Factor Code")
+        input(type="submit" name="submit" value="Submit")

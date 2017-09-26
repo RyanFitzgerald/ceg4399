@@ -1,0 +1,9 @@
+extends layout
+
+block content
+    h1 Register
+    a(href="/") &larr; Back to home
+    form(action="/create" method="POST")
+        input(type="text" name="username" placeholder="Choose a Username")
+        input(type="password" name="password" placeholder="Choose a Password")
+        input(type="submit" name="submit" value="Register")
