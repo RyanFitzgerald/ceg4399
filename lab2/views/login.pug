@@ -3,7 +3,7 @@ extends layout
 block content
     h1 Login
     a(href="/") &larr; Back to home
-    form(action="/verify-login" method="POST")
+    form(action="/verify" method="POST")
         input(type="text" name="username" placeholder="Username")
         input(type="password" name="password" placeholder="Password")
         input(type="submit" name="submit" value="Login")

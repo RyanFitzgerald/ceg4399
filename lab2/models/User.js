@@ -5,14 +5,18 @@ const validator = require('validator');
 const mongodbErrorHandler = require('mongoose-mongodb-errors');
 
 const userSchema = new Schema({
-    name: {
+    username: {
         type: String,
-        required: 'Please supply a name',
+        required: 'Please provide a name',
         trim: true
     },
     passwordHash: {
         type: String,
         required: 'Please provide a password hash'
+    },
+    secret: {
+        type: String,
+        default: ''
     }
 });
 

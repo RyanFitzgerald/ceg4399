@@ -2,4 +2,9 @@ extends layout
 
 block content
     h1 Setup Two-Factor
-    a(href="/account") Setup Complete
+    img(src=`${qrcode}`, alt="QRCode")
+    h2= secret
+    h3 Scan the code using Google Authenticator and enter the token below:
+    form(action="/validate" method="POST")
+        input(type="text" name="token" placeholder="Token")
+        input(type="submit" name="submit" value="Submit")

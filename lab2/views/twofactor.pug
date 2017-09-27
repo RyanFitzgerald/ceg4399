@@ -2,6 +2,7 @@ extends layout
 
 block content
     h1 Two-Factor Authentication
-    form(action="/verify-twofactor" method="POST")
-        input(type="text" name="twofactor" placeholder="Enter Two-Factor Code")
+    form(action="/twofactor" method="POST")
+        input(type="hidden" name="userID" value=`${id}`)
+        input(type="text" name="token" placeholder="Enter Two-Factor Token")
         input(type="submit" name="submit" value="Submit")

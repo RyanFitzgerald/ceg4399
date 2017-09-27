@@ -1,4 +1,8 @@
 extends layout
 
 block content
-    h1 Error
+  .inner
+    h2= status
+    p= message
+    img(src=`${qrcode}`)
+  pre.error!= stackHighlighted

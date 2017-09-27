@@ -1,43 +1,39 @@
 const express = require('express');
 const router = express.Router();
+const userController = require('../controllers/userController');
 const { catchErrors } = require('../handlers/errorHandlers');
 
-// --- Static Routes ---
+// --- Home Route ---
 router.get('/', (req, res) => {
     res.render('index', { title: 'Home' });
 });
 
+// --- Login-related Routes
 router.get('/login', (req, res) => {
     res.render('login', { title: 'Login' });
 });
 
-router.post('/verify-login', (req, res) => {
-    res.redirect('/twofactor');
-});
+router.post('/verify', catchErrors(userController.findAccount));
 
-router.get('/twofactor', (req, res) => {
-    res.render('twofactor', { title: 'Two-Factor' })
-});
+router.post('/twofactor', catchErrors(userController.verify));
 
-router.post('/verify-twofactor', (req, res) => {
-    res.redirect('/account');
-});
-
+// --- Register-related Routes
 router.get('/register', (req, res) => {
     res.render('register', { title: 'Register' })
 });
 
-router.post('/create', (req, res) => {
-    res.redirect('/setup');
-});
+router.post('/create', catchErrors(userController.createAccount));
 
-router.get('/setup', (req, res) => {
-    console.log('here');
-    res.render('setup', { title: 'Setup Two-Factor' });
-});
+router.post('/validate', catchErrors(userController.validate));
 
-router.get('/account', (req, res) => {
-    res.render('account', { title: 'Account Home' })
+// --- Account-related Routes ---
+router.get('/account', userController.viewAccount);
+
+router.get('/logout', (req, res) => {
+    req.session.user = false;
+    req.flash('success', 'You are now logged out!');
+    res.redirect('/');
+    return;
 });
 
 module.exports = router;

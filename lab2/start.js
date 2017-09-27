@@ -4,14 +4,14 @@ const mongoose = require('mongoose');
 require('dotenv').config({ path: 'variables.env' });
 
 // Connect to our Database and handle an bad connections
-// mongoose.connect(process.env.DATABASE);
-// mongoose.Promise = global.Promise;
-// mongoose.connection.on('error', (err) => {
-//   console.error(`Bad connection: ${err.message}`);
-// });
+mongoose.connect(process.env.DATABASE);
+mongoose.Promise = global.Promise;
+mongoose.connection.on('error', (err) => {
+  console.error(`Bad connection: ${err.message}`);
+});
 
 // Import all models
-//require('./models/User');
+require('./models/User');
 
 // Start our app!
 const app = require('./app');

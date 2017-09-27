@@ -24,6 +24,8 @@
     "mongoose": "^4.11.13",
     "mongoose-mongodb-errors": "0.0.2",
     "pug": "^2.0.0-rc.4",
+    "qrcode": "^0.9.0",
+    "speakeasy": "^2.0.0",
     "validator": "^8.2.0"
   },
   "devDependencies": {
