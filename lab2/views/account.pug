@@ -3,4 +3,12 @@ extends layout
 block content
     h1 Account Home
     p You are now securely logged in
+    h2 Generated Keys
+    h4= `Authenticity Key: ${authKey}`
+    h4= `Encryption Key: ${confKey}`
+    h2 Actions
+    a(href="#") Send File with Authenticity Check
+    br
+    a(href="#") Send File Securely (Encrypted)
+    br
     a(href="/logout") Logout

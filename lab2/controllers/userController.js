@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
 const speakeasy = require('speakeasy');
+const crypto = require('crypto');
 const QRCode = require('qrcode');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
@@ -12,7 +13,10 @@ exports.viewAccount = async (req, res) => {
         return;
     }
 
-    res.render('account');
+    const authKey = crypto.randomBytes(32).toString('hex');
+    const confKey = crypto.randomBytes(32).toString('hex');
+
+    res.render('account', { authKey, confKey });
 };
 
 exports.createAccount = async (req, res, next) => {
