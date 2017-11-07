@@ -31,7 +31,7 @@ function scanDirectory(dirname) {
         signatures.forEach(signature => {
           if (content.includes(signature)) {
             virus = true;
-            virusSignature = signature;
+            virusSignature = signature.toString().substring(0, 8);
           }
         });
 
@@ -40,15 +40,16 @@ function scanDirectory(dirname) {
           // Log virus found
           console.log(`!!! Virus Found in file: ${file}, rendered inactive !!!`);
 
-          // TO DO, render virus inactive
-          //const result = content.replace(/virusSignature/g, 'xxxxxxxx');
+          // Render virus inactive
+          const result = content.toString().replace(new RegExp(virusSignature, 'g'), 'xxxxxxxx');
 
-          // fs.writeFile(`${dirname}\\${file}`, result, (err) => {
-          //   if (err) {
-          //     console.log(err);
-          //     return
-          //   }
-          // });
+          // Write the new file back
+          fs.writeFile(`${dirname}\\${file}`, result, (err) => {
+            if (err) {
+              console.log(err);
+              return
+            }
+          });
 
           // Quarantine it to the folder
           console.log(`!!! File quarantined in folder 'quarantine' !!!`);
@@ -57,9 +58,7 @@ function scanDirectory(dirname) {
               console.log(err);
               return;
             }
-          });
-
-          
+          });  
         }
 
         // Print end message
@@ -71,11 +70,11 @@ function scanDirectory(dirname) {
 }
 
 // Get signatures and remove last empty string
-const signaturesRaw = fs.readFileSync('Signature.txt').toString().split('\n');
+const signaturesRaw = fs.readFileSync('Signature.DAT').toString().split('\n');
 signaturesRaw.splice(-1,1)
 
 // Get byte buffers for each signature
 signatures = signaturesRaw.map(val => Buffer.from(val, 'utf-8'));
 
 // Scan the provided directory
-scanDirectory('files-test');
+scanDirectory('files');
